@@ -30,7 +30,7 @@ http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=
 
 ****
 
-### 1. Solution Architecture
+### Solution Architecture
 
 1. Create environment : `python -m venv luigi-venv`
 
@@ -150,14 +150,17 @@ http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=
       #02 remove the last 3 columns containing the indicator meta descriptions
       = Table.RemoveLastN(data_unpivot1,3)
       
-      #03
-      = Table.TransformColumnTypes(#"Removed Bottom Rows",{{"year", type date}})
+      #03 reordered columns
       = Table.ReorderColumns(#"Changed Type",{"iso3", "indicator_code", "value", "year"})
+      
+      #04 replaced comma, with period to accomodate the locale region setup for text to number conversion
       = Table.ReplaceValue(#"Reordered Columns",".",",",Replacer.ReplaceText,{"value"})
       = Table.TransformColumnTypes(#"Replaced Value",{{"value", type number}})
+      
+      #05 remove every null data point using the year column
       = Table.SelectRows(#"Changed Type1", each ([year] <> null))
       ```
-    
+      
       
   
 ## Reference 
@@ -167,7 +170,7 @@ http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=
 - https://www.makeuseof.com/best-python-etl-tools/
 - https://content.techgig.com/technology/top-5-python-based-etl-tools-to-learn-in-2020/articleshow/74489069.cms
 - https://hevodata.com/learn/python-etl-tools/
-- DigitalOcean Sandbox: https://www.digitalocean.com/community/tutorials/how-to-build-a-data-processing-pipeline-using-luigi-in-python-on-ubuntu-20-04
+- https://www.digitalocean.com/community/tutorials/how-to-build-a-data-processing-pipeline-using-luigi-in-python-on-ubuntu-20-04
 
 
 
