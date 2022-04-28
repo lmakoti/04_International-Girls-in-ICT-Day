@@ -164,7 +164,7 @@ Connecting and building networks is always part of our  priorities, please reach
 
 > **Tsepo Thoabala, Software Engineer**
 >
-> LinkedIn - https://www.linkedin.com/in/tsepo-makhupane-a9a74b16/
+> LinkedIn - https://www.linkedin.com/in/t%C5%A1epo-melvin-thoabala-a7978952/
 
 
 
