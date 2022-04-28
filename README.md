@@ -1,12 +1,39 @@
 <h1 align="center">United Nations International Girls in ICT Day , 28 April 2022</a></h1>
 
+<p align='center'>
+<img src="03_Resources/badge_un_title.png" style="height:35px" alt="un_badge" border="0">
+<img src="03_Resources/badge_sdg4_title.png" style="height:35px" alt="cc_badge" border="0">
+<img src="03_Resources/badge_cc_title.png" style="height:35px" alt="cc_badge" border="0">
+</p>
+<p align="center">
+  <a href="#overview">Overview</a> •
+  <a href="#Rationale and definition (SDG9c)">Rationale and Definition</a> •
+  <a href="#Data Source">Data Source</a> •
+  <a href="#Solution Architecture">Solution Architecture</a> •
+  <a href="#networking">Networking</a> •
+  <a href="#Reference">Reference</a> •
+  <a href="#license">License</a>
+</p>
+
+## Overview
+
+`April 28, 2011 : Geneva, Switzerland`
+
+On 8 April 2011, ITU announced the establishment of an international'Girls in ICT Day', to be held every year on the fourth Thursday in April. Girls around the world gathered on 28 April 2011 to celebrate the first annual international Girls in ICT Day.
+
+The indicator for assessing progress in ICT used as part of the SDGs in based on Sustainable Development Goal 9 which is about "industry, innovation and  infrastructure" and is one of the 17 Sustainable Development Goals  adopted by the United Nations General Assembly in 2015. SDG 9 aims to  build resilient infrastructure, promote sustainable industrialization  and foster innovation. (https://www.itu.int/women-and-girls/girls-in-ict/home/history/)
 
 
-## Python ETL Libraries
-- **Requests**: Extraction
-- **Pandas**: Transformation (Initial, faster than PowerBI direct data load)
-- **Luigi**: Scheduler
-- **PowerBI**: Transformation, Load and Visualisation
+
+> **Mobile broadband subscriptions per 100 inhabitants, by urban/rural SDG 9.c** Significantly increase access to information and communications technology and strive to provide universal and affordable access to the Internet in least developed countries by 2020
+
+
+
+## Rationale and definition (SDG9c)
+
+Broadband is a key enabling technology, and access provides economic  benefits (access to the formal economy, access to regional and global  markets for local entrepreneurs, and access to banking services); health benefits (linking health workers to national health systems); and  promotes citizen participation in government. It is projected that  within a few years the majority of the world’s population, including in  sub-Saharan Africa, will have access to mobile broadband. This indicator measures the number of mobile broadband subscriptions per 100  inhabitants. The Broadband Commission describes broadband as: (a) always on; (b) high-capacity connectivity; and (c) enabling combined provision of multiple services simultaneously.
+
+ The ITU definition refers to access to data communications (e.g. the  Internet) at broadband downstream speeds greater than or equal to 256  Kbit/s. This indicator must be seen in conjunction with indicator 63. (https://indicators.report/indicators/i-59/)
 
 ## Data Source
 
@@ -25,12 +52,12 @@
 
 
 ```python
-http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=LSO/indicator_code=690706/year=2019
+http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=AGO,BWA,COM,COD,SWZ,LSO,MDG,MWI,MUS,MOZ,NAM,SYC,ZAF,TZA,ZMB,ZWE/indicator_id=46006
 ```
 
-****
+**Context: ** SADC member countries
 
-### Solution Architecture
+## Solution Architecture
 
 1. Create environment : `python -m venv luigi-venv`
 
@@ -54,36 +81,23 @@ http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=
 
 4. Running a Luigi task: `python -m luigi --module ScriptFileName className --local-scheduler`
 
-- Identify the relevant ***indicators***
+- Identify the relevant ***indicator/s***
 
-  - Share of graduates from science, technology, engineering and mathematics programmes in tertiary education who are female (%)
-    **Dimension**: Gender
-    **Definition**: Share of female graduates among all graduates of tertiary programmes in science, technology, engineering and mathematics.
-    **Source**: UNESCO (United Nations Educational, Scientific and Cultural Organization) Institute for Statistics (2020). Data Centre. http://data.uis.unesco.org. Accessed 21 July 2020.
-    - https://hdr.undp.org/en/indicators/183506
-    
-  - Share of graduates in science, technology, engineering and mathematics programmes at tertiary level, female (%)
-    **Dimension**: Gender
-    **Definition**: Share of female tertiary graduates in science, technology, engineering and mathematics programmes among all female tertiary graduates.
-    **Source**: UNESCO (United Nations Educational, Scientific and Cultural Organization) Institute for Statistics (2020). Data Centre. http://data.uis.unesco.org. Accessed 21 July 2020.
-    - https://hdr.undp.org/en/indicators/175906
-    
-  - Education index
-    **Dimension**: Education
-    **Definition**: Education index is an average of mean years of schooling (of adults) and expected years of schooling (of children), both expressed as an index obtained by scaling with the corresponding maxima.
-    **Source**: HDRO calculations based on expected years of schooling and mean years of schooling from UNESCO Institute for Statistics (2020) and other sources. Accessed on 21 July 2020.
+  **Mobile phone subscriptions (per 100 people)**
+  **Dimension:** Mobility and communication
+  **SDG 9.c** Significantly increase access to information and communications technology and strive to provide universal and affordable access to the Internet in least developed countries by 2020
+  **Definition:** Number of subscriptions for the mobile phone service, expressed per 100 people.
+  **Source:** ITU (International Telecommunication Union) (2020). ICT Facts and Figures 2020. www.itu.int/en/ITU-D/Statistics/Pages/stat/. Accessed 2 September 2020.
 
-    - https://hdr.undp.org/en/indicators/103706
-
-    ​	
+  ​	
 
 - **Create your analysis plan**
 
-  1. Find out if there is progress in the participation of females in STEM programmes at tertiary level and countries' inclusive education index
+  1. Find out if there is progress in the number of subscriptions to mobile phone services in SADC countries, because it is through mobile phones that most people in developing countries access information and the internet.
 
-  2. Check for the yearly data completeness
+  2. ***Check for the yearly data completeness***
 
-  3. Evaluate the trends in the identified indicators
+  3. ***Evaluate the trends in the identified indicators***
 
      
 
@@ -93,49 +107,20 @@ http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=
 
     **Installation libraries:** 
 
-    - `requests` -  is a simple, yet elegant, HTTP library, used to get API data from source (**UNDP** - Human Development Report Office Statistical Data API).
-    - `bs4 or beautifulsoup4` - Beautiful Soup is a library that makes it easy to scrape information from web pages. It sits atop an HTML or XML parser, providing Pythonic idioms for iterating, searching, and modifying the parse tree. - *not used but in original algorithm*
-    - `html5lib` - html5lib is a pure-python library for parsing HTML. It is designed to conform to the WHATWG HTML specification, as is implemented by all major web browsers. - *not used but in original algorithm*
-
+    - `luigi` scheduler package for running batch processes (simple test implementation, full capabilities not explored)
+    - `requests` sends HTTP requests to obtain response object data (usually loaded as a json response)
+    - `pandas` manages the data manipulation (transformation)
+    - `json` json encoder for python data structures (dataframes)
+  
   - **Transformation**
-
+  
     **Use Pandas to perform the transformation**
-
+  
     ```python
-    import requests
-    import pandas as pd
-    
-    baseurl = 'http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=ATG,AUS,BGD,BHS,BLZ,BRB,BRN,BWA,CAN,CMR,CYP,DMA,FJI,GBR,GHA,GMB,GRD,GUY,IND,JAM,KEN,KIR,KNA,LCA,LKA,LSO,MDV,MLT,MOZ,MUS,MWI,MYS,NAM,NGA,NRU,NZL,PAK,PNG,RWA,SGP,SLB,SLE,SWZ,SYC,TON,TTO,TUV,TZA,UGA,VCT,VUT,WSM,ZAF,ZMB/indicator_id=103706,183506,175906'
-    
-    #01 get the data
-    req = requests.get(baseurl)
-    data = req.json()
-    
-    #02 flatten the data inside of a dataframe
-    data_df_flat = pd.json_normalize(data, max_level=3)
-    
-    #03 unpivot data frame
-    data_unpivot = pd.melt(data_df_flat)
-    
-    #data_unpivot = pd.melt(pd.json_normalize(data, max_level=3))
-    
-    #04 split variable column by delimiter
-    data_unpivot[['placeholder','iso3', 'indicator_code', 'year']] = data_unpivot['variable'].str.split('.', expand=True)
-    
-    #05 remove unnecessary columns
-    data_unpivot.pop('variable')
-    data_unpivot.pop('placeholder')
-    
-    #06 see how the data looks like printed
-    #print(type(data_unpivot))
-    #print(data_unpivot)
-    
-    # Steps 02,03 can be combined: data_unpivot = pd.melt(pd.json_normalize(data, max_level=3))
-    # Step 06 can be removed, just a check step
-    
+    #Refer to main.py
     ```
   
-    
+    **Reference: ** <a href="02_ETL Architecture/main.py" target="_blank">main.py</a>
   
   - **Transform + Load (PowerBI)**
   
@@ -161,11 +146,32 @@ http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=
       = Table.SelectRows(#"Changed Type1", each ([year] <> null))
       ```
       
-      
   
+
+
+
+## Networking
+
+Connecting and building networks is always part of our  priorities, please reach out if you have any ideas on collaborative  efforts or any suggestions on ways we could improve our work:
+
+> **Tebello Mokhele, Revenue Assurance Specialist**
+>
+> LinkedIn - https://www.linkedin.com/in/tebello-mokhele-25009b98/
+
+> **Lehlohonolo Makoti, Data Management and Analytics Specialist **
+>
+> LinkedIn - https://www.linkedin.com/in/lehlohonolomakoti/
+
+> **Tsepo Thoabala, Software Engineer**
+>
+> LinkedIn - https://www.linkedin.com/in/tsepo-makhupane-a9a74b16/
+
+
+
 ## Reference 
 
 - **Highly Recommended** - https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html
+- https://indicators.report/indicators/i-59/
 - https://www.integrate.io/blog/comparison-of-the-top-python-etl-tools/
 - https://www.makeuseof.com/best-python-etl-tools/
 - https://content.techgig.com/technology/top-5-python-based-etl-tools-to-learn-in-2020/articleshow/74489069.cms
@@ -173,5 +179,9 @@ http://ec2-54-174-131-205.compute-1.amazonaws.com/API/HDRO_API.php/country_code=
 - https://www.digitalocean.com/community/tutorials/how-to-build-a-data-processing-pipeline-using-luigi-in-python-on-ubuntu-20-04
 
 
+
+## License
+
+This license lets others distribute, remix, adapt, and build upon your  work, even commercially, as long as they credit you for the original  creation. This is the most accommodating of licenses offered.  Recommended for maximum dissemination and use of licensed materials. (https://creativecommons.org/licenses/)
 
 ****
